@@ -1,13 +1,19 @@
 import luigi
-from Task1 import Task1
+from TaskHelper import TaskHelper
+
 
 class Task2(luigi.Task):
     def requires(self):
-        module = __import__('Task1')
-        class_ = getattr(module, 'Task1')
+        taskH = TaskHelper()
+        config = taskH.getConfigValue('Task2','DependOn')
+        class_ = taskH.getTaskClassBy(config)
         return [class_()]
+    
     def output(self):
         return luigi.LocalTarget('data/task2.txt')
+    
     def run(self):
+        taskH = TaskHelper()
         with self.output().open('w') as output:
-            output.write('I am task2')
+            output.write('I am task2\n')
+            output.write('My config is'+ taskH.getConfigValue('Task2', 'TaskSetting'))
