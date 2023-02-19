@@ -5,6 +5,8 @@ class Task3(luigi.Task):
     def requires(self):
         taskH = TaskHelper()
         config = taskH.getConfigValue('Task3','DependOn')
+        if not config:
+            return None
         class_ = taskH.getTaskClassBy(config)
         return [class_()]
     
