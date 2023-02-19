@@ -2,7 +2,8 @@ import luigi
 from TaskHelper import TaskHelper
 
 class WrapperTask1(luigi.Task):
-    pTask = None
+    pTask = luigi.TaskParameter()
+    config = luigi.DictParameter()
     
     def setPreviousTask(self, aTask):
         self.pTask = aTask
@@ -11,7 +12,7 @@ class WrapperTask1(luigi.Task):
         return [self.pTask]
     
     def output(self):
-        return luigi.LocalTarget('data/WrapperTask1.txt')
+        return luigi.LocalTarget('data/WrapperTask1_{0:2d}.txt'.format(self.config['time']))
     
     def run(self):
         taskH = TaskHelper()
