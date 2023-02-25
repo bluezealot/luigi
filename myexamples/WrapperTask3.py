@@ -12,7 +12,7 @@ class WrapperTask3(luigi.Task):
         self.pTask = aTask
 
     def output(self):
-        return luigi.LocalTarget('data/WrapperTask3_{0:2d}.txt'.format(self.config['time']))
+        return luigi.LocalTarget('data/WrapperTask3_{0}.txt'.format(self.config['time']))
     
     def run(self):
         taskH = TaskHelper()
